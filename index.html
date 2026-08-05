@@ -54,12 +54,13 @@
         <input type="date" id="date-to">
       </div>
       <div class="presets" id="presets" role="group" aria-label="Rangos predefinidos">
-        <button type="button" data-preset="all">Todo julio</button>
+        <button type="button" data-preset="all">Todo el periodo</button>
         <button type="button" data-preset="last7">Últimos 7 días</button>
-        <button type="button" data-preset="first15">1–15</button>
-        <button type="button" data-preset="last16">16–31</button>
+        <button type="button" data-preset="first15">1–15 jul</button>
+        <button type="button" data-preset="last16">16 jul en adelante</button>
       </div>
       <button type="button" id="table-toggle" class="ghost-btn" aria-pressed="false">Ver tabla de datos</button>
+      <button type="button" id="export-pdf" class="ghost-btn">Exportar PDF</button>
     </div>
     <p class="filter-note" id="filter-note" aria-live="polite"></p>
   </section>
@@ -97,10 +98,13 @@
 
 <footer class="site-footer">
   <div class="wrap">
-    <p>Multicamiones · Datos de julio 2026 servidos desde <code>data/daily.json</code>. Actualízalo manualmente o conecta el workflow automático en <code>.github/workflows/update-meta-data.yml</code>.</p>
+    <p>Multicamiones · Datos servidos desde <code>data/daily.json</code>, actualizados automáticamente cada día vía <code>.github/workflows/update-meta-data.yml</code>.</p>
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 <script src="js/app.js?v=4"></script>
+<script src="js/export.js?v=1"></script>
 </body>
 </html>

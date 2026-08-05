@@ -644,5 +644,27 @@
     }
   }
 
+  // ---------- export bridge (read-only view of current state, for js/export.js) ----------
+  window.MC = {
+    getExportData() {
+      const indices = filteredIndices();
+      return {
+        campaigns: state.campaigns,
+        dates: state.dates,
+        indices,
+        from: state.from,
+        to: state.to,
+        ads: state.ads,
+        selectedCampaignId: state.selectedCampaignId,
+      };
+    },
+    weekdayIndexMon0,
+    WEEKDAY_LABELS,
+    fmtDateISO,
+    fmtDateLabel,
+    fmtInt,
+    computeDelta,
+  };
+
   document.addEventListener("DOMContentLoaded", init);
 })();
