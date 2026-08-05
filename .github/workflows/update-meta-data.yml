@@ -1,14 +1,12 @@
 name: Actualizar datos diarios de Meta Ads
 
-# PREPARADO PERO NO ACTIVADO.
-# Para activar la actualización diaria automática:
-#   1. Agrega el secret META_ACCESS_TOKEN en Settings > Secrets and variables > Actions.
-#   2. Rellena los meta_campaign_id reales en .github/meta-campaign-map.json.
-#   3. Descomenta el bloque `schedule:` de abajo.
+# Corre todos los días, jala el resultado de ayer por campaña desde Meta
+# y hace commit de data/daily.json. Requiere el secret META_ACCESS_TOKEN
+# (Settings > Secrets and variables > Actions) para funcionar.
 on:
   workflow_dispatch: {}
-  # schedule:
-  #   - cron: "0 9 * * *"   # 09:00 UTC = 03:00/04:00 hora CDMX según horario de verano
+  schedule:
+    - cron: "0 13 * * *"   # 13:00 UTC = 08:00 hora Perú (UTC-5, sin horario de verano) — deja margen para que Meta termine de consolidar los datos de "ayer"
 
 permissions:
   contents: write
