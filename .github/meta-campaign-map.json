@@ -1,11 +1,11 @@
 {
-  "_comment": "Mapea cada campaña del dashboard (por id, columna izquierda) al ID numérico real de la campaña en Meta Ads. Rellena 'meta_campaign_id' con el ID de cada campaña (lo encuentras en Ads Manager o vía la API). Mientras algún campo diga 'REEMPLAZAR...', el workflow de actualización automática no podrá correr para esa campaña.",
+  "_comment": "Mapea cada campaña del dashboard (por id, columna izquierda) al ID numérico real de la campaña en Meta Ads. IDs ya confirmados contra la cuenta 635475068426730 el 2026-08-05.",
   "meta_account_id": "635475068426730",
   "campaigns": [
-    { "id": "regular",  "name": "Regular Multicamiones",        "meta_campaign_id": "REEMPLAZAR_CAMPAIGN_ID_REGULAR" },
-    { "id": "ochoxc",   "name": "8x4",                          "meta_campaign_id": "REEMPLAZAR_CAMPAIGN_ID_8X4" },
-    { "id": "liquid",   "name": "Liquidación Línea Amarilla",   "meta_campaign_id": "REEMPLAZAR_CAMPAIGN_ID_LIQUIDACION" },
-    { "id": "formul",   "name": "Formularios (leads)",          "meta_campaign_id": "REEMPLAZAR_CAMPAIGN_ID_FORMULARIOS" },
-    { "id": "freight",  "name": "Freightliner (mensajes)",      "meta_campaign_id": "REEMPLAZAR_CAMPAIGN_ID_FREIGHTLINER" }
+    { "id": "regular",  "name": "Regular Multicamiones",        "meta_campaign_id": "120240277554360719" },
+    { "id": "ochoxc",   "name": "8x4",                          "meta_campaign_id": "120242725553410719" },
+    { "id": "liquid",   "name": "Liquidación Línea Amarilla",   "meta_campaign_id": "120241547595050719" },
+    { "id": "formul",   "name": "Formularios (leads)",          "meta_campaign_id": "120247376772110719" },
+    { "id": "freight",  "name": "Freightliner (mensajes)",      "meta_campaign_id": "120248243779990719" }
   ]
 }

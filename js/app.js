@@ -26,6 +26,8 @@
     periodEnd: null,
     from: null,
     to: null,
+    ads: null,             // parsed data/ads.json, or null if unavailable
+    selectedCampaignId: null,
   };
 
   function utc(y, m, d) { return new Date(Date.UTC(y, m, d)); }
@@ -65,6 +67,16 @@
 
     document.title = `Multicamiones · ${json.account.meta_account_id} · Rendimiento publicitario`;
     $("#account-label").textContent = `Meta Ads · ${json.account.meta_account_id}`;
+  }
+
+  async function loadAdsData() {
+    try {
+      const res = await fetch("data/ads.json", { cache: "no-store" });
+      if (!res.ok) return;
+      state.ads = await res.json();
+    } catch (err) {
+      console.warn("No se pudo cargar data/ads.json — el detalle de anuncios no estará disponible.", err);
+    }
   }
 
   // ---------- filter range helpers ----------
@@ -147,6 +159,23 @@
       const card = document.createElement("div");
       card.className = "card";
       card.style.setProperty("--accent", c.color);
+      card.setAttribute("role", "button");
+      card.tabIndex = 0;
+      card.setAttribute("aria-expanded", String(state.selectedCampaignId === c.id));
+      card.setAttribute("aria-label", `Ver anuncios de ${c.name}`);
+      if (state.selectedCampaignId === c.id) card.classList.add("is-selected");
+
+      const toggle = () => selectCampaign(c.id);
+      card.addEventListener("click", toggle);
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+      });
+
+      const caret = document.createElement("span");
+      caret.className = "card-caret";
+      caret.setAttribute("aria-hidden", "true");
+      caret.textContent = "▾";
+      card.appendChild(caret);
 
       const curr = c.values[lastIdx];
       const hasPrev = prevIdx >= 0;
@@ -207,6 +236,151 @@
       card.append(head, valueRow, capt, sub, spark);
       grid.appendChild(card);
     });
+  }
+
+  // ---------- ads drill-down panel ----------
+
+  function selectCampaign(campaignId) {
+    state.selectedCampaignId = state.selectedCampaignId === campaignId ? null : campaignId;
+    document.querySelectorAll("#cards-grid .card").forEach((card, i) => {
+      const isSel = state.campaigns[i] && state.campaigns[i].id === state.selectedCampaignId;
+      card.classList.toggle("is-selected", isSel);
+      card.setAttribute("aria-expanded", String(isSel));
+    });
+    renderAdsPanel();
+  }
+
+  function fmtMoney(v) {
+    return v == null ? "—" : `S/${v.toFixed(2)}`;
+  }
+
+  function buildAdRow(ad) {
+    const row = document.createElement("div");
+    row.className = "ad-row";
+
+    const top = document.createElement("div");
+    top.className = "ad-row-top";
+    const name = document.createElement("span");
+    name.className = "ad-name";
+    name.textContent = ad.name;
+    top.appendChild(name);
+    row.appendChild(top);
+
+    const kpis = document.createElement("div");
+    kpis.className = "ad-kpis";
+    const kpiList = [
+      { lbl: "Gasto", val: fmtMoney(ad.spend) },
+      { lbl: ad.result_label, val: fmtInt.format(ad.results) },
+      { lbl: "Costo/result.", val: fmtMoney(ad.cost_per_result) },
+      { lbl: "CTR", val: `${ad.ctr.toFixed(2)}%` },
+      { lbl: "CPM", val: fmtMoney(ad.cpm) },
+      { lbl: "Alcance", val: fmtInt.format(ad.reach) },
+    ];
+    kpiList.forEach((k) => {
+      const kpi = document.createElement("div");
+      kpi.className = "ad-kpi";
+      kpi.innerHTML = `<span class="k-val"></span><span class="k-lbl"></span>`;
+      kpi.querySelector(".k-val").textContent = k.val;
+      kpi.querySelector(".k-lbl").textContent = k.lbl;
+      kpis.appendChild(kpi);
+    });
+    row.appendChild(kpis);
+
+    if (ad.action) {
+      const action = document.createElement("div");
+      action.className = `ad-action ${ad.action}`;
+      const icon = ad.action === "scale" ? "▲" : "⚠";
+      const label = ad.action === "scale" ? "Escalar" : "Revisar";
+      action.innerHTML = `<span class="ad-action-icon"></span><span><span class="ad-action-label"></span><span class="ad-action-text"></span></span>`;
+      action.querySelector(".ad-action-icon").textContent = icon;
+      action.querySelector(".ad-action-label").textContent = label;
+      action.querySelector(".ad-action-text").textContent = ad.action_reason || "";
+      row.appendChild(action);
+    }
+
+    (ad.meta_tips || []).forEach((tip) => {
+      const tipEl = document.createElement("div");
+      tipEl.className = "meta-tip";
+      tipEl.innerHTML = `<span class="meta-tip-lbl">Sugerencia de Meta</span><span class="meta-tip-text"></span>`;
+      tipEl.querySelector(".meta-tip-text").textContent = `${tip.body} (${tip.lift})`;
+      row.appendChild(tipEl);
+    });
+
+    return row;
+  }
+
+  function renderAdsPanel() {
+    const panel = $("#ads-panel");
+
+    if (!state.selectedCampaignId) {
+      panel.hidden = true;
+      panel.innerHTML = "";
+      return;
+    }
+
+    const campaign = state.campaigns.find((c) => c.id === state.selectedCampaignId);
+    panel.hidden = false;
+    panel.innerHTML = "";
+
+    const head = document.createElement("div");
+    head.className = "ads-panel-head";
+    head.innerHTML = `
+      <div>
+        <div class="ads-panel-title"><span class="card-dot"></span><span></span></div>
+        <div class="ads-panel-sub"></div>
+      </div>
+      <button type="button" class="ads-panel-close" aria-label="Cerrar detalle de anuncios">✕</button>`;
+    head.querySelector(".card-dot").style.setProperty("--accent", campaign.color);
+    head.querySelector(".ads-panel-title span:last-child").textContent = `Anuncios activos · ${campaign.name}`;
+    head.querySelector(".ads-panel-close").addEventListener("click", () => selectCampaign(state.selectedCampaignId));
+    panel.appendChild(head);
+
+    if (!state.ads || !state.ads.campaigns || !state.ads.campaigns[state.selectedCampaignId]) {
+      const empty = document.createElement("div");
+      empty.className = "ads-panel-empty";
+      empty.textContent = "No hay datos de anuncios disponibles (falta data/ads.json).";
+      panel.appendChild(empty);
+      return;
+    }
+
+    head.querySelector(".ads-panel-sub").textContent =
+      `KPI de ${state.ads.window_label || state.ads.window} · moneda ${state.ads.currency || ""}`;
+
+    const campaignData = state.ads.campaigns[state.selectedCampaignId];
+
+    if (campaignData.campaign_recommendations && campaignData.campaign_recommendations.length) {
+      const recs = document.createElement("div");
+      recs.className = "campaign-recs";
+      campaignData.campaign_recommendations.forEach((r) => {
+        const chip = document.createElement("span");
+        chip.className = "rec-chip";
+        chip.innerHTML = `<strong></strong> <span></span>`;
+        chip.querySelector("strong").textContent = r.title;
+        chip.querySelector("span").textContent = `— ${r.detail}`;
+        recs.appendChild(chip);
+      });
+      panel.appendChild(recs);
+    }
+
+    const list = document.createElement("div");
+    list.className = "ads-list";
+    if (!campaignData.ads || !campaignData.ads.length) {
+      const empty = document.createElement("div");
+      empty.className = "ads-panel-empty";
+      empty.textContent = "Esta campaña no tiene anuncios activos.";
+      list.appendChild(empty);
+    } else {
+      campaignData.ads.forEach((ad) => list.appendChild(buildAdRow(ad)));
+    }
+    panel.appendChild(list);
+
+    const hasApprox = (campaignData.ads || []).some((ad) => /aprox/i.test(ad.result_label || ""));
+    if (hasApprox && state.ads.note) {
+      const note = document.createElement("div");
+      note.className = "ads-panel-footnote";
+      note.textContent = state.ads.note;
+      panel.appendChild(note);
+    }
   }
 
   // ---------- rendering: weekly heatmap ----------
@@ -453,6 +627,7 @@
   async function init() {
     try {
       await loadData();
+      await loadAdsData();
       wireControls();
       setPresetActive("all");
       renderAll();

@@ -21,6 +21,13 @@ DATA_PATH = ROOT / "data" / "daily.json"
 MAP_PATH = ROOT / ".github" / "meta-campaign-map.json"
 GRAPH_VERSION = "v20.0"
 
+# Campañas cuyo objetivo de Ads Manager no coincide con lo que el campo
+# `results` reporta (ej. optimizadas para compra dentro del chat), y para las
+# que en vez usamos el conteo exacto de esta acción específica.
+ACTION_TYPE_OVERRIDES = {
+    "freight": "onsite_conversion.messaging_conversation_started_7d",
+}
+
 
 def load_json(path):
     with open(path, "r", encoding="utf-8") as f:
@@ -54,6 +61,27 @@ def fetch_results(campaign_id, day_iso, token):
         for v in r.get("values", []):
             total += int(v.get("value", 0) or 0)
     return total
+
+
+def fetch_action_count(campaign_id, action_type, day_iso, token):
+    """Devuelve el conteo exacto de un `action_type` específico (campo `actions`
+    de Insights), para campañas donde `results` no reporta la métrica que
+    queremos (ej. optimizadas para un evento más profundo del embudo)."""
+    url = f"https://graph.facebook.com/{GRAPH_VERSION}/{campaign_id}/insights"
+    params = {
+        "fields": "actions",
+        "time_range": json.dumps({"since": day_iso, "until": day_iso}),
+        "access_token": token,
+    }
+    resp = requests.get(url, params=params, timeout=30)
+    resp.raise_for_status()
+    rows = resp.json().get("data", [])
+    if not rows:
+        return 0
+    for action in rows[0].get("actions", []):
+        if action.get("action_type") == action_type:
+            return int(action.get("value", 0) or 0)
+    return 0
 
 
 def main():
@@ -93,7 +121,11 @@ def main():
             value = 0
         else:
             try:
-                value = fetch_results(meta_id, yesterday_iso, token)
+                action_type = ACTION_TYPE_OVERRIDES.get(cid)
+                if action_type:
+                    value = fetch_action_count(meta_id, action_type, yesterday_iso, token)
+                else:
+                    value = fetch_results(meta_id, yesterday_iso, token)
             except requests.HTTPError as e:
                 print(f"[{cid}] error consultando Meta API: {e}", file=sys.stderr)
                 value = 0

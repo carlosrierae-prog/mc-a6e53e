@@ -43,6 +43,7 @@
 
   /* status — fixed, never themed */
   --good:      #0ca30c;
+  --serious:   #ec835a;
   --critical:  #d03b3b;
 
   --radius: 14px;
@@ -106,19 +107,18 @@ body {
   padding: 16px 24px;
 }
 
-.brand { display: flex; align-items: center; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 14px; }
 
-.brand-mark {
-  width: 34px;
-  height: 34px;
-  display: grid;
-  place-items: center;
-  border-radius: 9px;
-  background: linear-gradient(135deg, var(--series-1), var(--series-3));
-  color: #06090f;
-  font-size: 16px;
-  font-weight: 700;
-  box-shadow: 0 0 22px rgba(57,135,229,0.45);
+.brand-logo {
+  height: 22px;
+  width: auto;
+  display: block;
+}
+
+.brand-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border-strong);
 }
 
 .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
@@ -342,6 +342,40 @@ h2 {
   background: linear-gradient(165deg, var(--surface-raised) 0%, var(--surface-1) 100%);
   padding: 16px 16px 14px;
   overflow: hidden;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  font-family: inherit;
+  color: inherit;
+  transition: border-color 0.15s, transform 0.1s;
+}
+
+.card:hover {
+  border-color: var(--border-strong);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--accent, var(--series-1));
+  outline-offset: 2px;
+}
+
+.card.is-selected {
+  border-color: var(--accent, var(--series-1));
+  box-shadow: 0 0 0 1px var(--accent, var(--series-1)), 0 8px 24px rgba(0,0,0,0.35);
+}
+
+.card-caret {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 11px;
+  color: var(--muted);
+  transition: transform 0.15s;
+}
+
+.card.is-selected .card-caret {
+  color: var(--accent, var(--series-1));
+  transform: rotate(180deg);
 }
 
 .card::before {
@@ -433,6 +467,210 @@ h2 {
 
 .card-empty {
   font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* ---------- ads drill-down panel ---------- */
+
+.ads-panel {
+  margin-top: 16px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface-1);
+  overflow: hidden;
+  animation: ads-panel-in 0.18s ease-out;
+}
+
+@keyframes ads-panel-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ads-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--surface-raised), var(--surface-1));
+}
+
+.ads-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.ads-panel-sub {
+  font-size: 11.5px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  margin-top: 2px;
+}
+
+.ads-panel-close {
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.ads-panel-close:hover { color: var(--text-primary); border-color: var(--text-secondary); }
+
+.campaign-recs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(57,135,229,0.05);
+}
+
+.rec-chip {
+  font-size: 11.5px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(57,135,229,0.35);
+  color: var(--text-secondary);
+  background: rgba(57,135,229,0.08);
+}
+
+.rec-chip strong { color: var(--text-primary); font-weight: 600; }
+
+.ads-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.ad-row {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.ad-row:last-child { border-bottom: none; }
+
+.ad-row-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.ad-name {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.ad-kpis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.ad-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 74px;
+}
+
+.ad-kpi .k-val {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.ad-kpi .k-lbl {
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.ad-action {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.ad-action.scale {
+  background: rgba(12,163,12,0.10);
+  border: 1px solid rgba(12,163,12,0.3);
+  color: var(--text-secondary);
+}
+
+.ad-action.review {
+  background: rgba(236,131,90,0.10);
+  border: 1px solid rgba(236,131,90,0.35);
+  color: var(--text-secondary);
+}
+
+.ad-action-icon { flex-shrink: 0; font-size: 13px; margin-top: 1px; }
+.ad-action.scale .ad-action-icon { color: var(--good); }
+.ad-action.review .ad-action-icon { color: var(--serious); }
+
+.ad-action-label {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  margin-right: 6px;
+}
+
+.ad-action.scale .ad-action-label { color: var(--good); }
+.ad-action.review .ad-action-label { color: var(--serious); }
+
+.meta-tip {
+  margin-top: 8px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.meta-tip-lbl {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-right: 6px;
+}
+
+.ads-panel-empty, .ads-panel-loading {
+  padding: 24px 18px;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.ads-panel-footnote {
+  padding: 10px 18px 14px;
+  font-size: 11px;
   color: var(--muted);
   font-style: italic;
 }

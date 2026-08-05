@@ -1,0 +1,65 @@
+{
+  "generated_at": "2026-08-05T00:00:00-05:00",
+  "window": "last_7d",
+  "window_label": "últimos 7 días (29 jul – 4 ago)",
+  "currency": "PEN",
+  "note": "Los KPI de la campaña Freightliner (conversaciones iniciadas) son un estimado derivado de gasto ÷ costo por conversación, porque esa campaña está optimizada para compra dentro del chat y Meta no expone el conteo directo de conversaciones para ese caso.",
+  "campaigns": {
+    "regular": {
+      "meta_campaign_id": "120240277554360719",
+      "campaign_recommendations": [
+        { "title": "Advantage+ audience", "detail": "9.7% menos costo por resultado (mediana)", "body": "Con Advantage+ audience, los anuncios se muestran más allá de tu segmentación cuando es probable que mejore el rendimiento." },
+        { "title": "Reels verticales 9:16", "detail": "8% menos costo por resultado", "body": "Incluir un video vertical en pantalla completa (9:16) con audio en tus anuncios de Reels puede mejorar el rendimiento." }
+      ],
+      "ads": [
+        { "id": "120240277554320719", "name": "Gráfico chasis volvo vm 4x2R", "status": "ACTIVE", "spend": 2.61, "results": 2, "result_label": "Conversaciones iniciadas", "cost_per_result": 1.31, "ctr": 0.94, "cpm": 1.44, "impressions": 1809, "reach": 1588, "frequency": 1.14, "action": null, "action_reason": null, "meta_tips": [ { "type": "gen_ai_mvp", "lift": "10% de aumento en los clics", "body": "Agrega variedad al contenido usando imágenes generadas con IA a partir de tus productos." }, { "type": "music", "lift": "Porcentaje de clics más alto", "body": "Deja que Meta seleccione y agregue música a tus anuncios automáticamente." } ] },
+        { "id": "120247376265240719", "name": "Pieza volvo FH 6x4 (con ia)", "status": "ACTIVE", "spend": 220.96, "results": 78, "result_label": "Conversaciones iniciadas", "cost_per_result": 2.83, "ctr": 1.51, "cpm": 1.94, "impressions": 113923, "reach": 63296, "frequency": 1.80, "action": null, "action_reason": null, "meta_tips": [ { "type": "gen_ai_mvp", "lift": "10% de aumento en los clics", "body": "Agrega variedad al contenido usando imágenes generadas con IA a partir de tus productos." } ] },
+        { "id": "120244130072370719", "name": "Carrusel chasis volvo vm 4x2R", "status": "ACTIVE", "spend": 240.16, "results": 69, "result_label": "Conversaciones iniciadas", "cost_per_result": 3.48, "ctr": 1.29, "cpm": 1.61, "impressions": 149509, "reach": 76730, "frequency": 1.95, "action": null, "action_reason": null, "meta_tips": [] },
+        { "id": "120244280054990719", "name": "Carrusel mercedes benz actros 3344K", "status": "ACTIVE", "spend": 3.31, "results": 0, "result_label": "Conversaciones iniciadas", "cost_per_result": null, "ctr": 1.55, "cpm": 3.02, "impressions": 1095, "reach": 963, "frequency": 1.14, "action": null, "action_reason": null, "meta_tips": [] }
+      ]
+    },
+    "ochoxc": {
+      "meta_campaign_id": "120242725553410719",
+      "campaign_recommendations": [
+        { "title": "Reels verticales 9:16", "detail": "8% menos costo por resultado", "body": "Incluir un video vertical en pantalla completa (9:16) con audio en tus anuncios de Reels puede mejorar el rendimiento." }
+      ],
+      "ads": [
+        { "id": "120248243414060719", "name": "Carrusel FMX 480", "status": "ACTIVE", "spend": 7.39, "results": 3, "result_label": "Conversaciones iniciadas", "cost_per_result": 2.46, "ctr": 1.88, "cpm": 3.56, "impressions": 2077, "reach": 1688, "frequency": 1.23, "action": null, "action_reason": null, "meta_tips": [] },
+        { "id": "120242727865700719", "name": "Carrusel FMX 500", "status": "ACTIVE", "spend": 333.15, "results": 112, "result_label": "Conversaciones iniciadas", "cost_per_result": 2.97, "ctr": 3.09, "cpm": 2.13, "impressions": 156207, "reach": 98395, "frequency": 1.59, "action": null, "action_reason": null, "meta_tips": [] },
+        { "id": "120242726155680719", "name": "Pieza FMX 540", "status": "ACTIVE", "spend": 7.94, "results": 3, "result_label": "Conversaciones iniciadas", "cost_per_result": 2.65, "ctr": 2.36, "cpm": 1.74, "impressions": 4573, "reach": 4383, "frequency": 1.04, "action": null, "action_reason": null, "meta_tips": [ { "type": "gen_ai_mvp", "lift": "10% de aumento en los clics", "body": "Agrega variedad al contenido usando imágenes generadas con IA a partir de tus productos." }, { "type": "music", "lift": "Porcentaje de clics más alto", "body": "Deja que Meta seleccione y agregue música a tus anuncios automáticamente." } ] },
+        { "id": "120247787469870719", "name": "Carrusel Todos", "status": "ACTIVE", "spend": 3.66, "results": 0, "result_label": "Conversaciones iniciadas", "cost_per_result": null, "ctr": 8.95, "cpm": 6.97, "impressions": 525, "reach": 438, "frequency": 1.20, "action": null, "action_reason": null, "meta_tips": [] }
+      ]
+    },
+    "liquid": {
+      "meta_campaign_id": "120241547595050719",
+      "campaign_recommendations": [],
+      "ads": [
+        { "id": "120248386161450719", "name": "Video Linea amarilla", "status": "ACTIVE", "spend": 84.96, "results": 35, "result_label": "Conversaciones iniciadas", "cost_per_result": 2.43, "ctr": 2.78, "cpm": 9.12, "impressions": 9311, "reach": 5901, "frequency": 1.58, "action": "scale", "action_reason": "38% más eficiente que el promedio de la campaña (S/2.43 vs S/3.91 por conversación) — candidato a subir presupuesto.", "meta_tips": [] },
+        { "id": "120247748717520719", "name": "Carrusel general", "status": "ACTIVE", "spend": 0.81, "results": 0, "result_label": "Conversaciones iniciadas", "cost_per_result": null, "ctr": 0.79, "cpm": 3.21, "impressions": 252, "reach": 212, "frequency": 1.19, "action": null, "action_reason": null, "meta_tips": [] },
+        { "id": "120247748847390719", "name": "Post flexible con ia", "status": "ACTIVE", "spend": 126.35, "results": 19, "result_label": "Conversaciones iniciadas", "cost_per_result": 6.65, "ctr": 1.10, "cpm": 2.81, "impressions": 44968, "reach": 29529, "frequency": 1.52, "action": "review", "action_reason": "70% más caro que el promedio de la campaña (S/6.65 vs S/3.91 por conversación) — revisar creatividad o segmentación.", "meta_tips": [ { "type": "gen_ai_mvp", "lift": "10% de aumento en los clics", "body": "Agrega variedad al contenido usando imágenes generadas con IA a partir de tus productos." } ] },
+        { "id": "120243240506640719", "name": "Carrusel cargador frontal", "status": "ACTIVE", "spend": 0.65, "results": 0, "result_label": "Conversaciones iniciadas", "cost_per_result": null, "ctr": 6.67, "cpm": 6.19, "impressions": 105, "reach": 93, "frequency": 1.13, "action": null, "action_reason": null, "meta_tips": [] },
+        { "id": "120243226643460719", "name": "Reel Rodillo SD105", "status": "ACTIVE", "spend": 0.52, "results": 0, "result_label": "Conversaciones iniciadas", "cost_per_result": null, "ctr": 2.67, "cpm": 3.47, "impressions": 150, "reach": 146, "frequency": 1.03, "action": null, "action_reason": null, "meta_tips": [] }
+      ]
+    },
+    "formul": {
+      "meta_campaign_id": "120247376772110719",
+      "campaign_recommendations": [
+        { "title": "Conectar CRM (API de conversiones)", "detail": "Costo por cliente potencial de calidad ~24% más bajo", "body": "Conecta tu CRM con la API de conversiones para ayudar a optimizar la calidad de tus clientes potenciales." },
+        { "title": "Reels verticales 9:16", "detail": "8% menos costo por resultado", "body": "Incluir un video vertical en pantalla completa (9:16) con audio en tus anuncios de Reels puede mejorar el rendimiento." }
+      ],
+      "ads": [
+        { "id": "120247376772100719", "name": "IA Post", "status": "ACTIVE", "spend": 127.81, "results": 53, "result_label": "Leads (formulario)", "cost_per_result": 2.41, "ctr": 2.56, "cpm": 5.07, "impressions": 25204, "reach": 12815, "frequency": 1.97, "action": null, "action_reason": null, "meta_tips": [ { "type": "gen_ai_mvp", "lift": "10% de aumento en los clics", "body": "Agrega variedad al contenido usando imágenes generadas con IA a partir de tus productos." } ] },
+        { "id": "120247376868580719", "name": "Carrusel", "status": "ACTIVE", "spend": 2.27, "results": 1, "result_label": "Leads (formulario)", "cost_per_result": 2.27, "ctr": 2.58, "cpm": 5.32, "impressions": 427, "reach": 352, "frequency": 1.21, "action": null, "action_reason": null, "meta_tips": [ { "type": "music", "lift": "Porcentaje de clics más alto", "body": "Deja que Meta seleccione y agregue música a tus anuncios automáticamente." } ] }
+      ]
+    },
+    "freight": {
+      "meta_campaign_id": "120248243779990719",
+      "campaign_recommendations": [],
+      "ads": [
+        { "id": "120248243780000719", "name": "Carrusel Freightliner 114SD", "status": "ACTIVE", "spend": 1.26, "results": 3, "result_label": "Conversaciones iniciadas (aprox.)", "cost_per_result": 0.42, "ctr": 2.36, "cpm": 2.12, "impressions": 594, "reach": 483, "frequency": 1.23, "action": null, "action_reason": null, "meta_tips": [ { "type": "music", "lift": "Porcentaje de clics más alto", "body": "Deja que Meta seleccione y agregue música a tus anuncios automáticamente." } ] },
+        { "id": "120248308505260719", "name": "Video", "status": "ACTIVE", "spend": 10.34, "results": 12, "result_label": "Conversaciones iniciadas (aprox.)", "cost_per_result": 0.86, "ctr": 6.90, "cpm": 3.88, "impressions": 2666, "reach": 2052, "frequency": 1.30, "action": "scale", "action_reason": "75% más eficiente que el promedio de la campaña (S/0.86 vs S/3.44 por conversación) — candidato a subir presupuesto.", "meta_tips": [] },
+        { "id": "120248243987740719", "name": "Post Freightliner 114SD", "status": "ACTIVE", "spend": 96.18, "results": 19, "result_label": "Conversaciones iniciadas (aprox.)", "cost_per_result": 5.06, "ctr": 2.34, "cpm": 2.48, "impressions": 38746, "reach": 20844, "frequency": 1.86, "action": "review", "action_reason": "47% más caro que el promedio de la campaña (S/5.06 vs S/3.44 por conversación) — revisar creatividad o segmentación.", "meta_tips": [ { "type": "gen_ai_mvp", "lift": "10% de aumento en los clics", "body": "Agrega variedad al contenido usando imágenes generadas con IA a partir de tus productos." } ] }
+      ]
+    }
+  }
+}
