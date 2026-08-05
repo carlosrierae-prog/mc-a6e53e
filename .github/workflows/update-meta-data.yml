@@ -1,0 +1,43 @@
+name: Actualizar datos diarios de Meta Ads
+
+# PREPARADO PERO NO ACTIVADO.
+# Para activar la actualización diaria automática:
+#   1. Agrega el secret META_ACCESS_TOKEN en Settings > Secrets and variables > Actions.
+#   2. Rellena los meta_campaign_id reales en .github/meta-campaign-map.json.
+#   3. Descomenta el bloque `schedule:` de abajo.
+on:
+  workflow_dispatch: {}
+  # schedule:
+  #   - cron: "0 9 * * *"   # 09:00 UTC = 03:00/04:00 hora CDMX según horario de verano
+
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install requests
+
+      - name: Jalar resultados de ayer por campaña
+        env:
+          META_ACCESS_TOKEN: ${{ secrets.META_ACCESS_TOKEN }}
+        run: python .github/scripts/update_daily_data.py
+
+      - name: Commit si hay cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- data/daily.json; then
+            echo "Sin cambios en data/daily.json"
+          else
+            git add data/daily.json
+            git commit -m "chore: actualizar resultados diarios de Meta Ads"
+            git push
+          fi

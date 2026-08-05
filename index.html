@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Multicamiones · Rendimiento publicitario</title>
+<meta name="description" content="Dashboard de rendimiento de campañas de Meta Ads para Multicamiones.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚛</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="bg-grid" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">◭</span>
+      <div class="brand-text">
+        <span class="brand-name">MULTICAMIONES</span>
+        <span class="brand-sub">Ad Performance Console</span>
+      </div>
+    </div>
+    <div class="account-chip" id="account-chip">
+      <span class="dot" aria-hidden="true"></span>
+      <span id="account-label">Meta Ads · 635475068426730</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-text">
+      <h1 id="hero-title">Rendimiento de campañas</h1>
+      <p class="hero-desc">Resultados diarios por campaña. Filtra el rango para recalcular comparativas y mapa de calor semanal.</p>
+    </div>
+    <div class="hero-stats" id="hero-stats" role="group" aria-label="Resumen del periodo filtrado"></div>
+  </section>
+
+  <section class="filters" aria-label="Filtro de rango de fechas">
+    <div class="filter-row">
+      <div class="field">
+        <label for="date-from">Desde</label>
+        <input type="date" id="date-from">
+      </div>
+      <div class="field">
+        <label for="date-to">Hasta</label>
+        <input type="date" id="date-to">
+      </div>
+      <div class="presets" id="presets" role="group" aria-label="Rangos predefinidos">
+        <button type="button" data-preset="all">Todo julio</button>
+        <button type="button" data-preset="last7">Últimos 7 días</button>
+        <button type="button" data-preset="first15">1–15</button>
+        <button type="button" data-preset="last16">16–31</button>
+      </div>
+      <button type="button" id="table-toggle" class="ghost-btn" aria-pressed="false">Ver tabla de datos</button>
+    </div>
+    <p class="filter-note" id="filter-note" aria-live="polite"></p>
+  </section>
+
+  <section class="cards-section" aria-labelledby="cards-title">
+    <h2 id="cards-title">Día vs. día anterior <span class="section-hint">(último día del rango seleccionado)</span></h2>
+    <div class="cards-grid" id="cards-grid"></div>
+  </section>
+
+  <section class="heatmap-section" aria-labelledby="heatmap-title">
+    <div class="section-head">
+      <h2 id="heatmap-title">Mapa de calor semanal</h2>
+      <p class="section-hint">Promedio de resultados por día de la semana, dentro del rango filtrado</p>
+    </div>
+    <div class="heatmap-wrap">
+      <div class="heatmap" id="heatmap" role="table" aria-label="Promedio de resultados por campaña y día de la semana"></div>
+    </div>
+    <div class="legend" id="heatmap-legend" aria-hidden="true"></div>
+  </section>
+
+  <section class="table-section" id="table-section" hidden aria-labelledby="table-title">
+    <h2 id="table-title">Datos diarios (rango filtrado)</h2>
+    <div class="table-wrap">
+      <table id="data-table">
+        <thead></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Multicamiones · Datos de julio 2026 servidos desde <code>data/daily.json</code>. Actualízalo manualmente o conecta el workflow automático en <code>.github/workflows/update-meta-data.yml</code>.</p>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
