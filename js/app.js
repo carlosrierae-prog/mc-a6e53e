@@ -114,14 +114,14 @@
     const stats = [
       { lbl: "Resultados totales", val: fmtInt.format(total) },
       { lbl: "Días en el rango", val: fmtInt.format(indices.length) },
-      { lbl: "Campaña líder", val: topCampaign ? topCampaign.name : "—" },
+      { lbl: "Campaña líder", val: topCampaign ? topCampaign.name : "—", isText: true },
     ];
 
     stats.forEach((s) => {
       const div = document.createElement("div");
       div.className = "hero-stat";
       const val = document.createElement("span");
-      val.className = "val";
+      val.className = s.isText ? "val is-text" : "val";
       val.textContent = s.val;
       const lbl = document.createElement("span");
       lbl.className = "lbl";
